@@ -1,0 +1,46 @@
+ul,
+li {
+  list-style-type: none;
+}
+.clickable {
+  cursor: pointer;
+}
+.deleteButton {
+  color: white;
+  font-weight: bold;
+  background-color: darkred;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.hidden {
+  display: none;
+}
+
+#shown {
+  display: flex;
+  position: relative;
+  top: 100px;
+}
+
+#list img {
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+#list span {
+  position: relative;
+  top: 15px;
+}
+
+.information {
+  text-align: center;
+  font-weight: bold;
+  border: black 1px solid;
+  display: initial;
+  font-size: 40px;
+  margin: 40px;
+  padding: 20px;
+  position: relative;
+  top: 50px;
+}
