@@ -26,15 +26,15 @@ function messageUsersNotFound(event) {
     zeroUsers.innerHTML = 'No users found';
     someUsers.style.display = 'none';
   } else {
-    someUsers.innerHTML = `${counter()} found users`;
-    zeroUsers.style.display = 'none';
-    someUsers.style.display = 'initial';
+    // someUsers.innerHTML = `${counter()} found users`;
+    // zeroUsers.style.display = 'none';
+    // someUsers.style.display = 'initial';
   }
 }
 
 function counter() {
-  let totalSum = document.getElementById('list').getElementsByTagName('li')
-    .length;
+  let totalSum = document.querySelectorAll('#shown').length;
+  console.log('totalSum', totalSum);
   return totalSum;
 }
 
@@ -44,17 +44,27 @@ function search() {
 
     if (!hasText) {
       searchBtn.disabled = false;
-      return;
+      searchFilterBtnApply();
+      // return;
     }
 
     const searchFilterBtnApply = () =>
       Array.from(list.children).map((li) => {
         let matchFound = new RegExp(inputName.value, 'gi').test(li.innerText);
 
+        console.log(inputName.value);
+
         if (matchFound) {
           li.id = 'shown';
+
+          let someUsers = document.getElementById('someUsers');
+
+          someUsers.innerHTML = `${counter()} found users`; //new obs
+          zeroUsers.style.display = 'none'; //new obs
+          someUsers.style.display = 'initial'; //new obs
         } else {
-          li.classList.remove('hidden');
+          li.classList.add('hidden');
+          li.id = '';
         }
       });
     searchFilterBtnApply();
@@ -64,7 +74,7 @@ function search() {
   searchBtn.addEventListener('click', startSearch);
 
   inputName.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' || event.target === 'Backspace') {
       startSearch();
     } else {
       return;
@@ -82,7 +92,6 @@ function form() {
 
     let ul = document.createElement('ul');
     ul.id = 'list';
-    console.log(ul);
 
     for (let i = 0; i < shownPerson.length; i++) {
       let li = document.createElement('li');
