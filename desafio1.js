@@ -72,8 +72,6 @@ function search() {
   inputName.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
       startSearch();
-    } else if (event.target.value !== '') {
-      startSearch;
     } else {
       return;
     }
