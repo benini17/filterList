@@ -29,44 +29,48 @@ function messageUsersNotFound(event) {
   statisticSection();
 }
 
-function search() {
-  function counter(number) {
-    switch (number) {
-      case 1:
-        let totalSum = document.querySelectorAll('#shown').length;
-        console.log('totalSum', totalSum);
-        return totalSum;
-      case 2:
-        let teste = document.querySelectorAll('#shown');
+function counter(number, otherInfo) {
+  switch (number) {
+    case 1:
+      let totalSum = document.querySelectorAll('#shown').length;
+      console.log('totalSum', totalSum);
+      return totalSum;
+    case 2:
+      let teste = document.querySelectorAll('#shown');
 
-        let object = people.results;
+      let object = people.results;
 
-        console.log('object', object);
+      console.log('object', object);
 
-        let arrFoundUsers = [];
-        for (let i = 0; i < teste.length; i++) {
-          let fullInformation = Array.from(teste)[i].textContent;
-          arrFoundUsers.push(fullInformation);
-          console.log('arrFoundUsers', arrFoundUsers);
-        }
+      let arrFoundUsers = [];
+      for (let i = 0; i < teste.length; i++) {
+        let fullInformation = Array.from(teste)[i].textContent;
+        arrFoundUsers.push(fullInformation);
+        console.log('arrFoundUsers', arrFoundUsers);
+      }
 
-        let arrDB = [];
-        for (let i = 0; i < object.length; i++) {
-          let fullNameDB = `${object[i].name.first} ${object[i].name.last}, ${object[i].dob.age} anos`;
-          arrDB.push(fullNameDB);
-        }
-        let index = [];
-        let ages = [];
-        let genders = [];
-        for (let i = 0; i < arrFoundUsers.length; i++) {
-          index.push(arrDB.indexOf(arrFoundUsers[i]));
-          ages.push(object[index[i]].dob.age);
-          genders.push(object[index[i]].gender);
-          console.log('dentro index', genders);
-        }
-    }
+      let arrDB = [];
+      for (let i = 0; i < object.length; i++) {
+        let fullNameDB = `${object[i].name.first} ${object[i].name.last}, ${object[i].dob.age} anos`;
+        arrDB.push(fullNameDB);
+      }
+      let index = [];
+      let ages = [];
+      let genders = [];
+      for (let i = 0; i < arrFoundUsers.length; i++) {
+        index.push(arrDB.indexOf(arrFoundUsers[i]));
+        ages.push(object[index[i]].dob.age);
+        genders.push(object[index[i]].gender);
+        console.log('dentro index', genders);
+      }
+      if (otherInfo == 'gender') {
+        return genders;
+      } else if (otherInfo == 'age') {
+        return ages;
+      }
   }
-
+}
+function search() {
   function startSearch(event) {
     var hasText = !!inputName.value && inputName.value.trim() !== '';
 
@@ -92,8 +96,7 @@ function search() {
           li.classList.add('hidden');
           li.id = '';
         }
-        let differentFlow = 1;
-        someUsers.innerHTML = `${counter(differentFlow)} found users`;
+        someUsers.innerHTML = `${counter(1)} found users`;
       });
 
     searchFilterBtnApply();
@@ -176,18 +179,23 @@ function statisticSection() {
   console.log('totalSum', totalSum);
   let teste = document.querySelectorAll('#shown');
   console.log('all', teste);
-  let differentFlow = 2;
 
-  // arrParagraph[0].textContent = `${
-  //   arrParagraph[0].textContent
-  // } ${counterMale(differentFlow)}`;
-  // arrParagraph[1].textContent = `${
-  //   arrParagraph[0].textContent
-  // } ${counterFemale(differentFlow)}`;
-  // arrParagraph[2].textContent = `${arrParagraph[0].textContent} ${ageSum()}`;
-  // arrParagraph[3].textContent = `${
-  //   arrParagraph[0].textContent
-  // } ${ageAvarage()}`;
+  arrParagraph[0].textContent = `${arrParagraph[0].textContent} ${counter(
+    2,
+    'gender'
+  )}`;
+  arrParagraph[1].textContent = `${arrParagraph[0].textContent} ${counter(
+    2,
+    'gender'
+  )}`;
+  arrParagraph[2].textContent = `${arrParagraph[0].textContent} ${counter(
+    2,
+    'age'
+  )}`;
+  arrParagraph[3].textContent = `${arrParagraph[0].textContent} ${counter(
+    2,
+    'age'
+  )}`;
 }
 
 /* 
