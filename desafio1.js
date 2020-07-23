@@ -59,13 +59,13 @@ function search() {
 
           let someUsers = document.getElementById('someUsers');
 
-          someUsers.innerHTML = `${counter()} found users`; //new obs
           zeroUsers.style.display = 'none'; //new obs
           someUsers.style.display = 'initial'; //new obs
         } else {
           li.classList.add('hidden');
           li.id = '';
         }
+        someUsers.innerHTML = `${counter()} found users`; //new obs
       });
     searchFilterBtnApply();
   }
@@ -74,8 +74,10 @@ function search() {
   searchBtn.addEventListener('click', startSearch);
 
   inputName.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter' || event.target === 'Backspace') {
+    if (event.key === 'Enter') {
       startSearch();
+    } else if (event.target.value !== '') {
+      startSearch;
     } else {
       return;
     }
