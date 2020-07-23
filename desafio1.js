@@ -25,10 +25,6 @@ function messageUsersNotFound(event) {
   if (inputName == '') {
     zeroUsers.innerHTML = 'No users found';
     someUsers.style.display = 'none';
-  } else {
-    // someUsers.innerHTML = `${counter()} found users`;
-    // zeroUsers.style.display = 'none';
-    // someUsers.style.display = 'initial';
   }
 }
 
@@ -45,7 +41,6 @@ function search() {
     if (!hasText) {
       searchBtn.disabled = false;
       searchFilterBtnApply();
-      // return;
     }
 
     const searchFilterBtnApply = () =>
@@ -65,6 +60,7 @@ function search() {
           li.classList.add('hidden');
           li.id = '';
         }
+
         someUsers.innerHTML = `${counter()} found users`; //new obs
       });
     searchFilterBtnApply();
