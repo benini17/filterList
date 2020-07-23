@@ -28,13 +28,13 @@ function messageUsersNotFound(event) {
   }
 }
 
-function counter() {
-  let totalSum = document.querySelectorAll('#shown').length;
-  console.log('totalSum', totalSum);
-  return totalSum;
-}
-
 function search() {
+  function counter() {
+    let totalSum = document.querySelectorAll('#shown').length;
+    console.log('totalSum', totalSum);
+    return totalSum;
+  }
+
   function startSearch(event) {
     var hasText = !!inputName.value && inputName.value.trim() !== '';
 
@@ -54,15 +54,16 @@ function search() {
 
           let someUsers = document.getElementById('someUsers');
 
-          zeroUsers.style.display = 'none'; //new obs
-          someUsers.style.display = 'initial'; //new obs
+          zeroUsers.style.display = 'none';
+          someUsers.style.display = 'initial';
         } else {
           li.classList.add('hidden');
           li.id = '';
         }
 
-        someUsers.innerHTML = `${counter()} found users`; //new obs
+        someUsers.innerHTML = `${counter()} found users`;
       });
+
     searchFilterBtnApply();
   }
 
