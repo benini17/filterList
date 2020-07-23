@@ -26,13 +26,45 @@ function messageUsersNotFound(event) {
     zeroUsers.innerHTML = 'No users found';
     someUsers.style.display = 'none';
   }
+  statisticSection();
 }
 
 function search() {
-  function counter() {
-    let totalSum = document.querySelectorAll('#shown').length;
-    console.log('totalSum', totalSum);
-    return totalSum;
+  function counter(number) {
+    switch (number) {
+      case 1:
+        let totalSum = document.querySelectorAll('#shown').length;
+        console.log('totalSum', totalSum);
+        return totalSum;
+      case 2:
+        let teste = document.querySelectorAll('#shown');
+
+        let object = people.results;
+
+        console.log('object', object);
+
+        let arrFoundUsers = [];
+        for (let i = 0; i < teste.length; i++) {
+          let fullInformation = Array.from(teste)[i].textContent;
+          arrFoundUsers.push(fullInformation);
+          console.log('arrFoundUsers', arrFoundUsers);
+        }
+
+        let arrDB = [];
+        for (let i = 0; i < object.length; i++) {
+          let fullNameDB = `${object[i].name.first} ${object[i].name.last}, ${object[i].dob.age} anos`;
+          arrDB.push(fullNameDB);
+        }
+        let index = [];
+        let ages = [];
+        let genders = [];
+        for (let i = 0; i < arrFoundUsers.length; i++) {
+          index.push(arrDB.indexOf(arrFoundUsers[i]));
+          ages.push(object[index[i]].dob.age);
+          genders.push(object[index[i]].gender);
+          console.log('dentro index', genders);
+        }
+    }
   }
 
   function startSearch(event) {
@@ -60,8 +92,8 @@ function search() {
           li.classList.add('hidden');
           li.id = '';
         }
-
-        someUsers.innerHTML = `${counter()} found users`;
+        let differentFlow = 1;
+        someUsers.innerHTML = `${counter(differentFlow)} found users`;
       });
 
     searchFilterBtnApply();
@@ -129,6 +161,33 @@ function form() {
   let peoplePhotos = object.map((personPhotos) => personPhotos.picture);
 
   creatingList();
+}
+
+function statisticSection() {
+  let arrParagraph = Array.from(document.querySelectorAll('p'));
+  let arrH2 = Array.from(
+    document.getElementById('statistics').getElementsByTagName('h2')
+  );
+
+  console.log(arrParagraph);
+  console.log(arrH2);
+
+  let totalSum = document.querySelectorAll('#shown').length;
+  console.log('totalSum', totalSum);
+  let teste = document.querySelectorAll('#shown');
+  console.log('all', teste);
+  let differentFlow = 2;
+
+  // arrParagraph[0].textContent = `${
+  //   arrParagraph[0].textContent
+  // } ${counterMale(differentFlow)}`;
+  // arrParagraph[1].textContent = `${
+  //   arrParagraph[0].textContent
+  // } ${counterFemale(differentFlow)}`;
+  // arrParagraph[2].textContent = `${arrParagraph[0].textContent} ${ageSum()}`;
+  // arrParagraph[3].textContent = `${
+  //   arrParagraph[0].textContent
+  // } ${ageAvarage()}`;
 }
 
 /* 
