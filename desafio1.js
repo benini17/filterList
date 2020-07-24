@@ -3,9 +3,10 @@ inputName.addEventListener('keyup', messageUsersNotFound);
 window.addEventListener('load', () => {
   console.log('Página totalmente carregada');
   inputName = document.querySelector('#inputName');
+  let searchBtn = document.getElementById('searchBtn');
+  searchBtn.disabled = true;
   preventFormSubmit();
   form();
-  search();
 });
 
 function preventFormSubmit() {
@@ -17,83 +18,93 @@ function preventFormSubmit() {
 }
 
 function messageUsersNotFound(event) {
-  let inputName = document.getElementById('inputName').value;
+  // let inputName = document.getElementById('inputName');
+  let inputNameValue = event.target.value;
+  console.log(inputNameValue);
 
   let zeroUsers = document.getElementById('zeroUsers');
   let someUsers = document.getElementById('someUsers');
 
-  if (inputName == '') {
+  if (inputNameValue == '') {
     zeroUsers.innerHTML = 'No users found';
     someUsers.style.display = 'none';
+  } else {
+    search();
   }
   statisticSection();
 }
 
-function counter(number, otherInfo) {
-  switch (number) {
+function counter(otherInfo) {
+  let shownUsers = document.querySelectorAll('#shown');
+  // console.log('shownUsers', shownUsers);
+  let object = people.results;
+
+  let arrFoundUsers = [];
+
+  for (let i = 0; i < shownUsers.length; i++) {
+    let fullInformation = Array.from(shownUsers)[i].textContent;
+    arrFoundUsers.push(fullInformation);
+    // console.log('arrFoundUsers', arrFoundUsers);
+  }
+  // console.log('arrFoundUsers', arrFoundUsers);
+  let arrDB = [];
+  for (let i = 0; i < object.length; i++) {
+    let fullNameDB = `${object[i].name.first} ${object[i].name.last}, ${object[i].dob.age} anos`;
+    arrDB.push(fullNameDB);
+  }
+  // console.log('arrDB', arrDB);
+  let index = [];
+  let ages = [];
+  let genders = [];
+
+  for (let i = 0; i < arrFoundUsers.length; i++) {
+    index.push(arrDB.indexOf(arrFoundUsers[i]));
+    ages.push(object[index[i]].dob.age);
+    genders.push(object[index[i]].gender);
+    // console.log('dentro index', genders);
+  }
+  // console.log('antes do if', ages);
+
+  // console.log('otherInfo', otherInfo);
+  switch (otherInfo) {
     case 1:
       let totalSum = document.querySelectorAll('#shown').length;
       return totalSum;
-    case 2:
-      let shownUsers = document.querySelectorAll('#shown');
-      console.log('shownUsers', shownUsers);
-      let object = people.results;
-
-      let arrFoundUsers = [];
-
-      for (let i = 0; i < shownUsers.length; i++) {
-        let fullInformation = Array.from(shownUsers)[i].textContent;
-        arrFoundUsers.push(fullInformation);
-        console.log('arrFoundUsers', arrFoundUsers);
-      }
-      console.log('arrFoundUsers', arrFoundUsers);
-      let arrDB = [];
-      for (let i = 0; i < object.length; i++) {
-        let fullNameDB = `${object[i].name.first} ${object[i].name.last}, ${object[i].dob.age} anos`;
-        arrDB.push(fullNameDB);
-      }
-      console.log('arrDB', arrDB);
-      let index = [];
-      let ages = [];
-      let genders = [];
-
-      for (let i = 0; i < arrFoundUsers.length; i++) {
-        index.push(arrDB.indexOf(arrFoundUsers[i]));
-        ages.push(object[index[i]].dob.age);
-        genders.push(object[index[i]].gender);
-        console.log('dentro index', genders);
-      }
-      console.log('antes do if', ages);
-
+    case 'male':
       let totalMen = 0;
       genders.forEach((gender) => {
         if (gender == 'male') {
-          return (totalMen += 1);
-        } else {
-          return (totalWomen += 1);
+          // console.log('totalMen', totalMen);
+          return totalMen++;
         }
       });
+    case 'female':
+      let totalWomen = 0;
+      genders.forEach((gender) => {
+        if (gender == 'female') {
+          return totalWomen++;
+        }
+      });
+    // else if (otherInfo == 'ageAverage') {
+    //   console.log('agessssssssssssss', ages);
+    //   const totalSum = ages.reduce((acc, curr) => {
+    //     acc + curr, 0;
+    //   });
+    //   let avarage = totalSum / ages.length;
+    //   return avarage;
+    // } else {
+    //   const totalSum2 = ages.reduce((acc, curr) => acc + curr, 0);
+    //   console.log(totalSum2);
+    // }
   }
-  // else if (otherInfo == 'ageAverage') {
-  //   console.log('agessssssssssssss', ages);
-  //   const totalSum = ages.reduce((acc, curr) => {
-  //     acc + curr, 0;
-  //   });
-  //   let avarage = totalSum / ages.length;
-  //   return avarage;
-  // } else {
-  //   const totalSum2 = ages.reduce((acc, curr) => acc + curr, 0);
-  //   console.log(totalSum2);
-  // }
 }
 
 function search() {
   function startSearch(event) {
     var hasText = !!inputName.value && inputName.value.trim() !== '';
 
-    if (!hasText) {
+    if (hasText) {
       searchBtn.disabled = false;
-      searchFilterBtnApply();
     }
 
     const searchFilterBtnApply = () =>
@@ -117,7 +128,7 @@ function search() {
     searchFilterBtnApply();
   }
 
-  let searchBtn = document.getElementById('searchBtn');
+  // let searchBtn = document.getElementById('searchBtn');
   searchBtn.addEventListener('click', startSearch);
 
   inputName.addEventListener('keyup', (event) => {
@@ -184,10 +195,10 @@ function form() {
 function statisticSection() {
   let arrParagraph = Array.from(document.getElementsByClassName('answer'));
 
-  arrParagraph[0].textContent = counter(2, 'male');
-  arrParagraph[1].textContent = counter(2, 'female');
-  arrParagraph[2].textContent = counter(2, 'ageSum');
-  arrParagraph[3].textContent = counter(2, 'ageAverage');
+  arrParagraph[0].textContent = counter('male');
+  arrParagraph[1].textContent = counter('female');
+  arrParagraph[2].textContent = counter('ageSum');
+  arrParagraph[3].textContent = counter('ageAverage');
 }
 
 /* 
