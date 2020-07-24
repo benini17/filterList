@@ -37,13 +37,19 @@ li {
   text-align: center;
   font-weight: bold;
   border: black 1px solid;
-  display: initial;
+  display: inline;
   font-size: 40px;
   margin: 40px;
   padding: 20px;
   position: relative;
   top: 50px;
 }
+
 .answer {
   display: inline;
+}
+#statistics {
+  position: relative;
+  left: 400px;
+  bottom: 150px;
 }
