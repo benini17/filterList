@@ -38,9 +38,30 @@ function messageUsersNotFound() {
   someUsers.style.display = 'none';
 }
 
-function counter(otherInfo) {
+function statisticsCounter(otherInfo) {
+  function totalMen(otherInfo) {
+    console.log(otherInfo);
+    let totalMen = 0;
+    genders.forEach((gender) => {
+      if (gender == 'male') {
+        // console.log('totalMen', totalMen);
+        return totalMen++;
+      }
+    });
+  }
+
+  function totalWomen(otherInfo) {
+    console.log(otherInfo);
+    let totalWomen = 0;
+    genders.forEach((gender) => {
+      if (gender == 'female') {
+        return totalWomen++;
+      }
+    });
+  }
+
   let shownUsers = document.querySelectorAll('#shown');
-  // console.log('shownUsers', shownUsers);
+
   let object = people.results;
 
   let arrFoundUsers = [];
@@ -48,59 +69,48 @@ function counter(otherInfo) {
   for (let i = 0; i < shownUsers.length; i++) {
     let fullInformation = Array.from(shownUsers)[i].textContent;
     arrFoundUsers.push(fullInformation);
-    // console.log('arrFoundUsers', arrFoundUsers);
+    console.log('arrFoundUsers', arrFoundUsers);
   }
-  // console.log('arrFoundUsers', arrFoundUsers);
+
   let arrDB = [];
   for (let i = 0; i < object.length; i++) {
     let fullNameDB = `${object[i].name.first} ${object[i].name.last}, ${object[i].dob.age} anos`;
-    arrDB.push(fullNameDB);
   }
-  // console.log('arrDB', arrDB);
+  console.log('arrDB', arrDB);
   let index = [];
   let ages = [];
   let genders = [];
 
   for (let i = 0; i < arrFoundUsers.length; i++) {
     index.push(arrDB.indexOf(arrFoundUsers[i]));
+    console.log('index', index);
     ages.push(object[index[i]].dob.age);
     genders.push(object[index[i]].gender);
-    // console.log('dentro index', genders);
+    console.log('dentro index', genders);
   }
-  // console.log('antes do if', ages);
+  console.log('antes do if', genders);
 
-  // console.log('otherInfo', otherInfo);
-  switch (otherInfo) {
-    case 1:
-      let totalSum = document.querySelectorAll('#shown').length;
-      return totalSum;
-    case 'male':
-      let totalMen = 0;
-      genders.forEach((gender) => {
-        if (gender == 'male') {
-          // console.log('totalMen', totalMen);
-          return totalMen++;
-        }
-      });
-    case 'female':
-      let totalWomen = 0;
-      genders.forEach((gender) => {
-        if (gender == 'female') {
-          return totalWomen++;
-        }
-      });
-    // else if (otherInfo == 'ageAverage') {
-    //   console.log('agessssssssssssss', ages);
-    //   const totalSum = ages.reduce((acc, curr) => {
-    //     acc + curr, 0;
-    //   });
-    //   let avarage = totalSum / ages.length;
-    //   return avarage;
-    // } else {
-    //   const totalSum2 = ages.reduce((acc, curr) => acc + curr, 0);
-    //   console.log(totalSum2);
-    // }
+  console.log('otherInfo', otherInfo);
+  if (otherInfo == 'male') {
+    totalMen(otherInfo);
+  } else if (otherInfo == 'female') {
+    totalWomen(otherInfo);
   }
+  // else if (otherInfo == 'ageSum') {
+  //   const totalSum2 = ages.reduce((acc, curr) => acc + curr, 0);
+  // }
+  // else {
+  //   const totalSum = ages.reduce((acc, curr) => {
+  //     acc + curr, 0;
+  //   });
+  //   let avarage = totalSum / ages.length;
+  //   return avarage;
+  // }
+}
+
+function counter(otherInfo) {
+  let totalSum = document.querySelectorAll('#shown').length;
+  return totalSum;
 }
 
 function search() {
@@ -120,7 +130,7 @@ function search() {
           li.classList.add('hidden');
           li.id = '';
         }
-        someUsers.innerHTML = `${counter(1)} found users`;
+        someUsers.innerHTML = `${counter()} found users`;
       });
 
     searchFilterBtnApply();
@@ -193,10 +203,10 @@ function form() {
 function statisticSection() {
   let arrParagraph = Array.from(document.getElementsByClassName('answer'));
 
-  arrParagraph[0].textContent = counter('male');
-  arrParagraph[1].textContent = counter('female');
-  arrParagraph[2].textContent = counter('ageSum');
-  arrParagraph[3].textContent = counter('ageAverage');
+  arrParagraph[0].textContent = statisticsCounter('male');
+  arrParagraph[1].textContent = statisticsCounter('female');
+  arrParagraph[2].textContent = statisticsCounter('ageSum');
+  arrParagraph[3].textContent = statisticsCounter('ageAverage');
 }
 
 /* 
