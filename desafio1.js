@@ -33,43 +33,60 @@ function counter(number, otherInfo) {
   switch (number) {
     case 1:
       let totalSum = document.querySelectorAll('#shown').length;
-      console.log('totalSum', totalSum);
       return totalSum;
     case 2:
-      let teste = document.querySelectorAll('#shown');
-
+      let shownUsers = document.querySelectorAll('#shown');
+      console.log('shownUsers', shownUsers);
       let object = people.results;
 
-      console.log('object', object);
-
       let arrFoundUsers = [];
-      for (let i = 0; i < teste.length; i++) {
-        let fullInformation = Array.from(teste)[i].textContent;
+
+      for (let i = 0; i < shownUsers.length; i++) {
+        let fullInformation = Array.from(shownUsers)[i].textContent;
         arrFoundUsers.push(fullInformation);
         console.log('arrFoundUsers', arrFoundUsers);
       }
-
+      console.log('arrFoundUsers', arrFoundUsers);
       let arrDB = [];
       for (let i = 0; i < object.length; i++) {
         let fullNameDB = `${object[i].name.first} ${object[i].name.last}, ${object[i].dob.age} anos`;
         arrDB.push(fullNameDB);
       }
+      console.log('arrDB', arrDB);
       let index = [];
       let ages = [];
       let genders = [];
+
       for (let i = 0; i < arrFoundUsers.length; i++) {
         index.push(arrDB.indexOf(arrFoundUsers[i]));
         ages.push(object[index[i]].dob.age);
         genders.push(object[index[i]].gender);
         console.log('dentro index', genders);
       }
-      if (otherInfo == 'gender') {
-        return genders;
-      } else if (otherInfo == 'age') {
-        return ages;
-      }
+      console.log('antes do if', ages);
+
+      let totalMen = 0;
+      genders.forEach((gender) => {
+        if (gender == 'male') {
+          return (totalMen += 1);
+        } else {
+          return (totalWomen += 1);
+        }
+      });
   }
+  // else if (otherInfo == 'ageAverage') {
+  //   console.log('agessssssssssssss', ages);
+  //   const totalSum = ages.reduce((acc, curr) => {
+  //     acc + curr, 0;
+  //   });
+  //   let avarage = totalSum / ages.length;
+  //   return avarage;
+  // } else {
+  //   const totalSum2 = ages.reduce((acc, curr) => acc + curr, 0);
+  //   console.log(totalSum2);
+  // }
 }
+
 function search() {
   function startSearch(event) {
     var hasText = !!inputName.value && inputName.value.trim() !== '';
@@ -82,8 +99,6 @@ function search() {
     const searchFilterBtnApply = () =>
       Array.from(list.children).map((li) => {
         let matchFound = new RegExp(inputName.value, 'gi').test(li.innerText);
-
-        console.log(inputName.value);
 
         if (matchFound) {
           li.id = 'shown';
@@ -167,35 +182,12 @@ function form() {
 }
 
 function statisticSection() {
-  let arrParagraph = Array.from(document.querySelectorAll('p'));
-  let arrH2 = Array.from(
-    document.getElementById('statistics').getElementsByTagName('h2')
-  );
+  let arrParagraph = Array.from(document.getElementsByClassName('answer'));
 
-  console.log(arrParagraph);
-  console.log(arrH2);
-
-  let totalSum = document.querySelectorAll('#shown').length;
-  console.log('totalSum', totalSum);
-  let teste = document.querySelectorAll('#shown');
-  console.log('all', teste);
-
-  arrParagraph[0].textContent = `${arrParagraph[0].textContent} ${counter(
-    2,
-    'gender'
-  )}`;
-  arrParagraph[1].textContent = `${arrParagraph[0].textContent} ${counter(
-    2,
-    'gender'
-  )}`;
-  arrParagraph[2].textContent = `${arrParagraph[0].textContent} ${counter(
-    2,
-    'age'
-  )}`;
-  arrParagraph[3].textContent = `${arrParagraph[0].textContent} ${counter(
-    2,
-    'age'
-  )}`;
+  arrParagraph[0].textContent = counter(2, 'male');
+  arrParagraph[1].textContent = counter(2, 'female');
+  arrParagraph[2].textContent = counter(2, 'ageSum');
+  arrParagraph[3].textContent = counter(2, 'ageAverage');
 }
 
 /* 
