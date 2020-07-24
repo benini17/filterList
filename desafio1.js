@@ -19,8 +19,13 @@ function preventFormSubmit() {
 
 function messageUsersFound(event) {
   let inputNameValue = event.target.value;
-  search();
-  statisticSection();
+  let hasText = !!inputNameValue && inputNameValue.trim() !== '';
+
+  if (hasText) {
+    searchBtn.disabled = false;
+    search();
+    statisticSection();
+  }
 }
 
 function messageUsersNotFound() {
@@ -100,12 +105,6 @@ function counter(otherInfo) {
 
 function search() {
   function startSearch(event) {
-    var hasText = !!inputName.value && inputName.value.trim() !== '';
-
-    if (hasText) {
-      searchBtn.disabled = false;
-    }
-
     const searchFilterBtnApply = () =>
       Array.from(list.children).map((li) => {
         let matchFound = new RegExp(inputName.value, 'gi').test(li.innerText);
