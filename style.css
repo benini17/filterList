@@ -44,3 +44,6 @@ li {
   position: relative;
   top: 50px;
 }
+.answer {
+  display: inline;
+}
