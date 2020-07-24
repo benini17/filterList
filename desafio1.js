@@ -1,4 +1,4 @@
-inputName.addEventListener('keyup', messageUsersNotFound);
+inputName.addEventListener('keyup', messageUsersFound);
 
 window.addEventListener('load', () => {
   console.log('Página totalmente carregada');
@@ -17,21 +17,20 @@ function preventFormSubmit() {
   form.addEventListener('submit', stopSubmit);
 }
 
-function messageUsersNotFound(event) {
-  // let inputName = document.getElementById('inputName');
+function messageUsersFound(event) {
   let inputNameValue = event.target.value;
-  console.log(inputNameValue);
+  search();
+  statisticSection();
+}
+
+function messageUsersNotFound() {
+  // let inputName = document.getElementById('inputName');
 
   let zeroUsers = document.getElementById('zeroUsers');
   let someUsers = document.getElementById('someUsers');
 
-  if (inputNameValue == '') {
-    zeroUsers.innerHTML = 'No users found';
-    someUsers.style.display = 'none';
-  } else {
-    search();
-  }
-  statisticSection();
+  zeroUsers.innerHTML = 'No users found';
+  someUsers.style.display = 'none';
 }
 
 function counter(otherInfo) {
