@@ -130,10 +130,14 @@ function search() {
   searchBtn.addEventListener('click', startSearch);
 
   inputName.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter') {
-      startSearch();
-    } else {
-      return;
+    let inputNameValue = event.target.value;
+    let hasText = !!inputNameValue && inputNameValue.trim() !== '';
+    if (hasText) {
+      if (event.key === 'Enter') {
+        startSearch();
+      } else {
+        return;
+      }
     }
   });
 }
