@@ -40,6 +40,7 @@ function messageUsersNotFound() {
 }
 
 function statisticsCounter(otherInfo) {
+  console.log('otherinfo inicio statistics', otherInfo);
   let shownUsers = Array.from(
     document.getElementById('names').querySelectorAll('#shown')
   );
@@ -69,6 +70,8 @@ function statisticsCounter(otherInfo) {
 
   console.log('arrFilteredFoundUsers', arrFilteredFoundUsers);
   let totalSum = 0;
+
+  console.log('otherinfo', otherInfo);
 
   if (otherInfo == 'male') {
     let numMen = arrFilteredFoundUsers.reduce(function (n, person) {
@@ -117,7 +120,7 @@ function search() {
       });
 
     searchFilterBtnApply();
-    statisticsCounter();
+    statisticSection();
   }
 
   // let searchBtn = document.getElementById('searchBtn');
