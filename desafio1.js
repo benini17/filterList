@@ -77,19 +77,25 @@ function statisticsCounter(otherInfo) {
     let numMen = arrFilteredFoundUsers.reduce(function (n, person) {
       return n + (person.gender == 'male');
     }, 0);
+    console.log('numMen', numMen);
+    return numMen;
   } else if (otherInfo == 'female') {
     let numWomen = arrFilteredFoundUsers.reduce(function (n, person) {
       return n + (person.gender == 'female');
     }, 0);
+    console.log('numWomen', numWomen);
+    return numWomen;
   } else if (otherInfo == 'ageSum') {
     const sumAge = arrFilteredFoundUsers.map((person) => {
       totalSum = parseInt(totalSum) + parseInt(person.age);
     });
+    console.log('sumAge', sumAge);
   } else {
     const avarage = arrFilteredFoundUsers.map((person) => {
       return (totalSum =
         parseInt(totalSum) +
         parseInt(person.age) / arrFilteredFoundUsers.length);
+      console.log('avarage', avarage);
     });
   }
 }
