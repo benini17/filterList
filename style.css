@@ -52,4 +52,13 @@ li {
   position: relative;
   left: 400px;
   bottom: 150px;
+  border: solid black 1px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#zeroUsers {
+  border: solid black 1px;
+  border-radius: 10px;
+  padding: 10px;
 }
