@@ -92,9 +92,13 @@ function statisticsCounter(otherInfo) {
     const sum = arrFilteredFoundUsers.reduce((acc, curr) => {
       return parseInt(acc) + parseInt(curr.age);
     }, 0);
-    const avarage = sum / arrFilteredFoundUsers.length;
-    console.log('avarage', avarage);
-    return parseFloat(avarage.toFixed(2));
+    if (sum > 0) {
+      const avarage = sum / arrFilteredFoundUsers.length;
+      console.log('avarage', avarage);
+      return parseFloat(avarage.toFixed(2));
+    } else {
+      return 0;
+    }
   }
 }
 
