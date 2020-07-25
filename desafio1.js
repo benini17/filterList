@@ -39,27 +39,6 @@ function messageUsersNotFound() {
 }
 
 function statisticsCounter(otherInfo) {
-  function totalMen(otherInfo) {
-    console.log(otherInfo);
-    let totalMen = 0;
-    genders.forEach((gender) => {
-      if (gender == 'male') {
-        // console.log('totalMen', totalMen);
-        return totalMen++;
-      }
-    });
-  }
-
-  function totalWomen(otherInfo) {
-    console.log(otherInfo);
-    let totalWomen = 0;
-    genders.forEach((gender) => {
-      if (gender == 'female') {
-        return totalWomen++;
-      }
-    });
-  }
-
   let shownUsers = Array.from(
     document.getElementById('names').querySelectorAll('#shown')
   );
@@ -79,70 +58,36 @@ function statisticsCounter(otherInfo) {
 
   console.log('index do pessoal aqui', arrFoundUsers);
 
-  const arrAgeGender = globalInfo.filter((person) => {
+  const arrFilteredFoundUsers = globalInfo.filter((person) => {
     for (let i = 0; i < arrFoundUsers.length; i++) {
       if (person.fullname == arrFoundUsers[i]) {
-        return person.gender;
+        return person;
       }
     }
   });
 
+  console.log('arrFilteredFoundUsers', arrFilteredFoundUsers);
   let totalSum = 0;
 
-  if (otherInfo == 'ageSum') {
-    const sumAge = arrAgeGender.map((person) => {
+  if (otherInfo == 'male') {
+    let numMen = arrFilteredFoundUsers.reduce(function (n, person) {
+      return n + (person.gender == 'male');
+    }, 0);
+  } else if (otherInfo == 'female') {
+    let numWomen = arrFilteredFoundUsers.reduce(function (n, person) {
+      return n + (person.gender == 'female');
+    }, 0);
+  } else if (otherInfo == 'ageSum') {
+    const sumAge = arrFilteredFoundUsers.map((person) => {
       totalSum = parseInt(totalSum) + parseInt(person.age);
     });
   } else {
-    const avarage = arrAgeGender.map((person) => {
+    const avarage = arrFilteredFoundUsers.map((person) => {
       return (totalSum =
-        parseInt(totalSum) + parseInt(person.age) / arrAgeGender.length);
+        parseInt(totalSum) +
+        parseInt(person.age) / arrFilteredFoundUsers.length);
     });
   }
-
-  totalMen();
-  totalWomen();
-  sumAge();
-  // for (let i = 0; i < shownUsers.length; i++) {
-  //   let fullInformation = Array.from(shownUsers)[i].textContent;
-  //   arrFoundUsers.push(fullInformation);
-  //   console.log('arrFoundUsers', arrFoundUsers);
-  // }
-
-  // let arrDB = [];
-  // for (let i = 0; i < object.length; i++) {
-  //   let fullNameDB = `${object[i].name.first} ${object[i].name.last}, ${object[i].dob.age} anos`;
-  // }
-  // console.log('arrDB', arrDB);
-  // let index = [];
-  // let ages = [];
-  // let genders = [];
-
-  // for (let i = 0; i < arrFoundUsers.length; i++) {
-  //   index.push(arrDB.indexOf(arrFoundUsers[i]));
-  //   console.log('index', index);
-  //   ages.push(object[index[i]].dob.age);
-  //   genders.push(object[index[i]].gender);
-  //   console.log('dentro index', genders);
-  // }
-  // console.log('antes do if', genders);
-
-  // console.log('otherInfo', otherInfo);
-  // if (otherInfo == 'male') {
-  //   totalMen(otherInfo);
-  // } else if (otherInfo == 'female') {
-  //   totalWomen(otherInfo);
-  // }
-  // else if (otherInfo == 'ageSum') {
-  //   const totalSum2 = ages.reduce((acc, curr) => acc + curr, 0);
-  // }
-  // else {
-  //   const totalSum = ages.reduce((acc, curr) => {
-  //     acc + curr, 0;
-  //   });
-  //   let avarage = totalSum / ages.length;
-  //   return avarage;
-  // }
 }
 
 function counter(otherInfo) {
