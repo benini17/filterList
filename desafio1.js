@@ -188,10 +188,15 @@ function form() {
   let object = people.results;
   object = object.sort((a, b) => a.name.first.localeCompare(b.name.first));
 
+  let globalInfo = object.map((person, index) =>
+    JSON.parse(
+      `{"fullname":"${person.name.first} ${person.name.last}", "age": "${person.dob.age}", "gender": "${person.gender}", "index": "${index}"}`
+    )
+  );
+
   //list of names and ages
-  let shownPerson = object.map(
-    (person) =>
-      `${person.name.first} ${person.name.last}, ${person.dob.age} anos`
+  let shownPerson = globalInfo.map(
+    (person) => `${person.fullname}, ${person.age} anos`
   );
 
   //list of photos accordingly to its owner index
