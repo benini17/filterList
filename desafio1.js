@@ -30,8 +30,6 @@ function messageUsersFound(event) {
 }
 
 function messageUsersNotFound() {
-  // let inputName = document.getElementById('inputName');
-
   let zeroUsers = document.getElementById('zeroUsers');
   let someUsers = document.getElementById('someUsers');
 
@@ -44,7 +42,6 @@ function statisticsCounter(otherInfo) {
   let shownUsers = Array.from(
     document.getElementById('names').querySelectorAll('#shown')
   );
-  // let shownUsers2 = document.querySelectorAll('#shown');
 
   let object = people.results;
 
@@ -68,7 +65,7 @@ function statisticsCounter(otherInfo) {
     }
   });
 
-  console.log('arrFilteredFoundUsers', arrFilteredFoundUsers);
+  console.log('arrFilteredFoundUsers', arrFilteredFoundUsers.length);
   let totalSum = 0;
 
   console.log('otherinfo', otherInfo);
@@ -86,17 +83,18 @@ function statisticsCounter(otherInfo) {
     console.log('numWomen', numWomen);
     return numWomen;
   } else if (otherInfo == 'ageSum') {
-    const sumAge = arrFilteredFoundUsers.map((person) => {
-      totalSum = parseInt(totalSum) + parseInt(person.age);
-    });
+    const sumAge = arrFilteredFoundUsers.reduce((acc, curr) => {
+      return parseInt(acc) + parseInt(curr.age);
+    }, 0);
     console.log('sumAge', sumAge);
+    return sumAge;
   } else {
-    const avarage = arrFilteredFoundUsers.map((person) => {
-      return (totalSum =
-        parseInt(totalSum) +
-        parseInt(person.age) / arrFilteredFoundUsers.length);
-      console.log('avarage', avarage);
-    });
+    const sum = arrFilteredFoundUsers.reduce((acc, curr) => {
+      return parseInt(acc) + parseInt(curr.age);
+    }, 0);
+    const avarage = sum / arrFilteredFoundUsers.length;
+    console.log('avarage', avarage);
+    return parseFloat(avarage.toFixed(2));
   }
 }
 
@@ -129,7 +127,6 @@ function search() {
     statisticSection();
   }
 
-  // let searchBtn = document.getElementById('searchBtn');
   searchBtn.addEventListener('click', startSearch);
 
   inputName.addEventListener('keyup', (event) => {
@@ -139,8 +136,6 @@ function search() {
       return;
     }
   });
-
-  // console.log('list.children', Array.from(list.children));
 }
 
 function form() {
