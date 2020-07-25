@@ -1,13 +1,15 @@
 inputName.addEventListener('keyup', messageUsersFound);
 
-window.addEventListener('load', () => {
+const start = () => {
   console.log('Página totalmente carregada');
   inputName = document.querySelector('#inputName');
   let searchBtn = document.getElementById('searchBtn');
   searchBtn.disabled = true;
   preventFormSubmit();
   form();
-});
+};
+
+start();
 
 function preventFormSubmit() {
   function stopSubmit(event) {
