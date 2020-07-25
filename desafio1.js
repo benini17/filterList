@@ -26,7 +26,6 @@ function messageUsersFound(event) {
   if (hasText) {
     searchBtn.disabled = false;
     search();
-    statisticSection();
   }
 }
 
@@ -118,6 +117,7 @@ function search() {
       });
 
     searchFilterBtnApply();
+    statisticsCounter();
   }
 
   // let searchBtn = document.getElementById('searchBtn');
