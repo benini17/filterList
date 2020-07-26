@@ -9,6 +9,31 @@ const start = () => {
   form();
 };
 
+let object = null;
+
+function fetchPromise() {
+  fetchUsers();
+}
+
+async function fetchUsers() {
+  const response = await fetch(
+    'https://randomuser.me/api/?seed=javascript&results=100&nat=BR&noinfo'
+  );
+  console.log(response);
+  const json = await response.json();
+  const object = json.results;
+
+  console.log(object);
+
+  let globalInfo = object.map((person, index) =>
+    JSON.parse(
+      `{"fullname":"${person.name.first} ${person.name.last}", "age": "${person.dob.age}", "gender": "${person.gender}", "index": "${index}"}`
+    )
+  );
+  console.log(globalInfo);
+}
+
+fetchPromise();
 start();
 
 function preventFormSubmit() {
@@ -43,7 +68,7 @@ function statisticsCounter(otherInfo) {
     document.getElementById('names').querySelectorAll('#shown')
   );
 
-  let object = people.results;
+  // let object = people.results;
 
   let globalInfo = object.map((person, index) =>
     JSON.parse(
@@ -183,6 +208,8 @@ function form() {
   //  List of people.js with all information alphabetically organized
   let object = people.results;
   object = object.sort((a, b) => a.name.first.localeCompare(b.name.first));
+
+  console.log(object);
 
   let globalInfo = object.map((person, index) =>
     JSON.parse(
