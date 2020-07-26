@@ -6,7 +6,7 @@ const start = () => {
   let searchBtn = document.getElementById('searchBtn');
   searchBtn.disabled = true;
   preventFormSubmit();
-  form();
+  // form();
 };
 
 let object = null;
@@ -21,7 +21,8 @@ async function fetchUsers() {
   );
   console.log(response);
   const json = await response.json();
-  const object = json.results;
+  let object = json.results;
+  object = object.sort((a, b) => a.name.first.localeCompare(b.name.first));
 
   console.log(object);
 
@@ -31,6 +32,7 @@ async function fetchUsers() {
     )
   );
   console.log(globalInfo);
+  form(object, globalInfo);
 }
 
 fetchPromise();
@@ -171,7 +173,7 @@ function search() {
   });
 }
 
-function form() {
+function form(object, globalInfo) {
   //creating list structure and adding the information
   function creatingList() {
     divList = document.getElementById('names');
@@ -201,21 +203,22 @@ function form() {
       photo.src = peoplePhotos[index].thumbnail;
       return photo;
     }
-
     messageUsersNotFound();
   }
+  console.log('object in form', object);
+  console.log('object in form', globalInfo);
 
   //  List of people.js with all information alphabetically organized
-  let object = people.results;
-  object = object.sort((a, b) => a.name.first.localeCompare(b.name.first));
+  // let object = people.results;
+  // object = object.sort((a, b) => a.name.first.localeCompare(b.name.first));
 
-  console.log(object);
+  // console.log(object);
 
-  let globalInfo = object.map((person, index) =>
-    JSON.parse(
-      `{"fullname":"${person.name.first} ${person.name.last}", "age": "${person.dob.age}", "gender": "${person.gender}", "index": "${index}"}`
-    )
-  );
+  // let globalInfo = object.map((person, index) =>
+  //   JSON.parse(
+  //     `{"fullname":"${person.name.first} ${person.name.last}", "age": "${person.dob.age}", "gender": "${person.gender}", "index": "${index}"}`
+  //   )
+  // );
 
   //list of names and ages
   let shownPerson = globalInfo.map(
