@@ -1,7 +1,12 @@
 function fetchPromise() {
   fetchUsers();
 }
+function display() {
+  statistics = document.getElementById('statistics');
+  statistics.style.display = 'none';
+}
 
+display();
 fetchPromise();
 
 async function fetchUsers() {
@@ -156,6 +161,14 @@ async function fetchUsers() {
     arrParagraph[1].textContent = statisticsCounter('female');
     arrParagraph[2].textContent = statisticsCounter('ageSum');
     arrParagraph[3].textContent = statisticsCounter('ageAverage');
+
+    if (arrParagraph[2].textContent > 0) {
+      let statistics = document.getElementById('statistics');
+      let noUsersFound = document.getElementById('noUsersFound');
+
+      statistics.style.display = 'initial';
+      noUsersFound.style.display = 'none';
+    }
   }
 }
 
