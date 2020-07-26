@@ -134,7 +134,7 @@ async function fetchUsers() {
       statisticSection();
     }
 
-    searchBtn.addEventListener('click', startSearch);
+    searchBtn.addEventListener('click', search);
 
     inputName.addEventListener('keyup', (event) => {
       let inputNameValue = event.target.value;
